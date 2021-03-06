@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/front/custom.js": "/js/front/custom.js",
+    "/js/admin/custom.js": "/js/admin/custom.js",
+    "/css/admin/custom.css": "/css/admin/custom.css",
+    "/css/front/custom.css": "/css/front/custom.css",
+    "/css/app.css": "/css/app.css"
+}
