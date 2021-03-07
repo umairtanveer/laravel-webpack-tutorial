@@ -30,16 +30,4 @@ $(document).ready(function () {
             }
         })
     });
-
-
-    $('yourFormID_OR_CLASS').submit(function (event) {
-        event.preventDefault();
-
-        let action = $(this).attr('action');
-        let method = $(this).attr('method');
-
-        // do ajax call
-    });
-
-
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Task1Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Task 1 CRUD OPERATION
+Route::get('task1/ajax/crud', [Task1Controller::class, 'index'])->name('task1.ajax.crud');

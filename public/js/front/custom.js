@@ -3706,11 +3706,6 @@ $(document).ready(function () {
       }
     });
   });
-  $('yourFormID_OR_CLASS').submit(function (event) {
-    event.preventDefault();
-    var action = $(this).attr('action');
-    var method = $(this).attr('method'); // do ajax call
-  });
 });
 })();
 
