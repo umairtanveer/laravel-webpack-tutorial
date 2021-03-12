@@ -15,6 +15,8 @@ mix.js('resources/js/app.js', 'public/js')
 
     // CLIENT JS LINKS
     .js('resources/js/front/custom.js', 'public/js/front')
+    .js('resources/js/front/ajax-request-helpers.js', 'public/js/front')
+    .js('resources/js/front/task1/todo.js', 'public/js/front/task1')
 
     // ADMIN JS LINKS
     .js('resources/js/admin/custom.js', 'public/js/admin')

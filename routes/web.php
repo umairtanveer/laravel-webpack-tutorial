@@ -21,3 +21,5 @@ Route::get('/', function () {
 
 // Task 1 CRUD OPERATION
 Route::get('task1/ajax/crud', [Task1Controller::class, 'index'])->name('task1.ajax.crud');
+
+Route::post('task1/ajax/todo/create', [Task1Controller::class, 'createTodo'])->name('task1.ajax.todo.create');

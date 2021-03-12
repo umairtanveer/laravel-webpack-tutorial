@@ -10,7 +10,7 @@
             <h3>{{ __('Todo List') }}</h3>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-info btn-sm float-right" data-toggle="modal"
+            <button class="btn btn-info float-right" data-toggle="modal"
                     data-target="#createTodoForm">{{ __('Create Todo') }}</button>
         </div>
     </div>
@@ -53,4 +53,8 @@
 
     @include('front.task1.includes._modals')
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/front/task1/todo.js') }}"></script>
 @endsection
