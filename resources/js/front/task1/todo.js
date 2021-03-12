@@ -77,13 +77,15 @@ $(document).ready(function () {
     }
 
 
+    // Show error in any form you just need to pass Errors_Array and Form_ID
     function showFormErrors(formId, errors) {
-        $.each($('#' + formId).serializeArray(), function (i, fields) {
-            let input = $('input[name=' + fields.name + ']');
-            let fieldName = input.attr('name');
+        let formInputsFields = $('#' + formId).serializeArray();
+
+        $.each(formInputsFields, function (key, field) {
+            let fieldName = field.name;
 
             if (errors[fieldName] !== undefined) {
-                input.after('<span class="text-danger form-error">' + errors[fieldName] + '</span>');
+                $("[name='" + fieldName + "']").after('<span class="text-danger form-error">' + errors[fieldName] + '</span>');
             }
         });
     }

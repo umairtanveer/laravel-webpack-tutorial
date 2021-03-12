@@ -43,7 +43,7 @@ class Task1Controller extends Controller
             'title' => 'required|max:255',
             'author' => 'required|max:50',
             'date' => 'required|date',
-            'listr' => 'sometimes|max:500',
+            'list' => 'required|max:500',
         ]);
 
         if ($validation->fails()) {
