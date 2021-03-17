@@ -82,4 +82,105 @@ class Task1Controller extends Controller
             'html' => $html
         ]);
     }
+
+    /**
+     * Update record for todo_lists table
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function updateTodo(Request $request): JsonResponse
+    {
+        $success = false;
+        $message = 'Sorry! something went wrong while saving data.';
+
+        $validation = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'author' => 'required|max:50',
+            'date' => 'required|date',
+            'list' => 'required|max:500',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => $success,
+                'errors' => $validation->errors()
+            ]);
+        }
+
+        // Update data
+        try {
+            $todo = Todo::find($request->get('id'));
+
+            if (empty($todo)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "TODO #{$request->get('id')} not found!"
+                ]);
+            }
+
+            $todo->forceFill([
+                'title' => $request->get('title'),
+                'author' => $request->get('author'),
+                'date' => $request->get('date'),
+                'list' => $request->get('list')
+            ]);
+
+            if ($todo->update()) {
+                $success = true;
+                $message = 'Todo list updated successfully!';
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => $success,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * Delete record for todo_lists table
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function deleteTodo(Request $request): JsonResponse
+    {
+        $success = false;
+        $message = 'Sorry! something went wrong while saving data.';
+
+        // Delete data
+        try {
+            $todo = Todo::find($request->get('id'));
+
+            if (empty($todo)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "TODO #{$request->get('id')} not found!"
+                ]);
+            }
+
+            if ($todo->delete()) {
+                $success = true;
+                $message = 'Todo list deleted successfully!';
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => $success,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message
+        ]);
+    }
 }

@@ -3690,7 +3690,7 @@ $(document).ready(function () {
   var formId = '';
   var $outputId = $('#task1_table'); // Get submit event
 
-  $('#create_todo').submit(function (event) {
+  $('#create_todo, #update_todo').submit(function (event) {
     event.preventDefault();
     formId = $(this).attr('id');
     action = $(this).attr('action');
@@ -3709,8 +3709,9 @@ $(document).ready(function () {
           showFormErrors(formId, data.errors);
         } else {
           document.getElementById(formId).reset();
-          $('.modal').modal('hide');
-          $outputId.append(data.html);
+          $('.modal').modal('hide'); // Table updations will be active after tomorrow DATA TABLE lecture
+          // $outputId.append(data.html);
+
           Swal.fire('Success!', data.message, 'success');
         }
 
@@ -3757,9 +3758,63 @@ $(document).ready(function () {
 
   function clearFormErrors() {
     $('.form-error').remove();
-  } // check output TRUE:FALSE
-  // show output to user
+  } // View btn
 
+
+  $('.view_todo').click(function () {
+    var data = $(this).data('row');
+    $('#show_id').text(data.id);
+    $('#show_title').text(data.title);
+    $('#show_author').text(data.author);
+    $('#show_date').text(data.date);
+    $('#show_list').text(data.list);
+    $('#detailTodoForm').modal('show');
+  }); // Edit btn
+
+  $('.edit_todo').click(function () {
+    var data = $(this).data('row');
+    $('#edit_id').val(data.id);
+    $('#edit_title').val(data.title);
+    $('#edit_author').val(data.author);
+    $('#edit_date').val(data.date); // Its a text area thats why i set HTML too
+
+    $('#edit_list').val(data.list);
+    $('#edit_list').html(data.list);
+    $('#updateTodoForm').modal('show');
+  }); // Delete btn
+
+  $('.delete_todo').click(function () {
+    var id = $(this).data('id');
+    Swal.fire({
+      title: 'Do you want to delete TODO #' + id + '?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Yes! Fuck this",
+      denyButtonText: "No! Thanks"
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '/task1/ajax/todo/delete',
+          type: 'POST',
+          data: {
+            'id': id
+          },
+          dataType: 'JSON',
+          success: function success(data) {
+            if (data.success == true) {
+              Swal.fire('Deleted!', 'Todo #' + id + ' is deleted successfully', 'success');
+            } else {
+              Swal.fire('Alert!', data.message, 'error');
+            }
+          },
+          error: function error(err) {
+            Swal.fire('Alert!', err.message, 'error');
+          }
+        });
+      }
+    });
+  }); // check output TRUE:FALSE
+  // show output to user
 });
 })();
 

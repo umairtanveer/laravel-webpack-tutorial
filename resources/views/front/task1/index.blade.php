@@ -40,9 +40,10 @@
                             <span class="caret"></span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:;">View</a>
-                            <a class="dropdown-item" href="javascript:;">Edit</a>
-                            <a class="dropdown-item" href="javascript:;">Delete</a>
+                            <a class="dropdown-item view_todo" href="javascript:;" data-row="{{ json_encode($todo) }}">View</a>
+                            <a class="dropdown-item edit_todo" href="javascript:;" data-row="{{ json_encode($todo) }}">Edit</a>
+                            <a class="dropdown-item delete_todo" href="javascript:;"
+                               data-id="{{ $todo->id }}">Delete</a>
                         </div>
                     </div>
                 </td>
